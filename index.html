@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Food Tracker</h1>
+      </div>
+      <ul>
+        <li id="clearApiButton">Clear API</li>
+      </ul>
+    </header>
+    <main>
+      <form>
+        <label for="food">Dishes</label>
+        <select class="inputs" name="food" id="dish">
+          <option value="Pizza">Pizza</option>
+          <option value="Bolognese">Bolognese</option>
+          <option value="Tuna Salad">Tuna Salad</option>
+          <option value="Chicken Soup">Chicken soup</option>
+          <option value="Tofu Wok">Tofu Wok</option>
+          <option value="Lentil Soup">Lentil soup</option>
+        </select>
+        <label for="carbs">Carbohydrates: </label>
+        <input class="inputs" id="carbs" type="number" />
+        <label for="protein">Protein: </label>
+        <input class="inputs" id="protein" type="number" />
+        <label for="fats">Fats: </label>
+        <input class="inputs" id="fats" type="number" />
+        <input id="submit" type="submit" />
+      </form>
+      <canvas id="nutriChart" height="100" width="300"></canvas>
+      <div id="totalCalories"> <p>Total Calories:</p> <p id="totalCaloriesAmount">0</p> </div>
+      <div class="dishContainer">
+        <ul id="dishList"></ul>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
