@@ -26,7 +26,6 @@ const updateDishes = () => {
 };
 
 const postFood = (carbs, proteins, fats, selectedDish) => {
-  if (selectedDish === undefined) selectedDish = "Pizza";
   return FoodAPI.post("otto", {
     fields: {
       fat: {
@@ -51,7 +50,12 @@ const addFood = (e) => {
   const carbsValue = document.querySelector("#carbs").value;
   const proteinValue = document.querySelector("#protein").value;
   const fatValue = document.querySelector("#fats").value;
-  if (selectedDish !== undefined && carbsValue && proteinValue && fatValue) {
+  if (
+    selectedDish !== "Select Food" &&
+    carbsValue &&
+    proteinValue &&
+    fatValue
+  ) {
     snackbar.show("Dish added succesfully");
     baseChart.destroy();
     baseChart = createChart(carbsValue, proteinValue, fatValue, selectedDish);
