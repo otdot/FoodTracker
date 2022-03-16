@@ -4,10 +4,8 @@ import Chart from "chart.js/auto";
 import { FetchWrapper } from "./fetch-wrapper";
 
 const form = document.querySelector("form");
-const carbs = document.querySelector(".bar.carbs");
 const nutriChart = document.querySelector("#nutriChart");
 const clearApiButton = document.querySelector("#clearApiButton");
-const labels = ["Carbohydrates", "Proteins", "Fats"];
 
 const FoodAPI = new FetchWrapper(
   "https://firestore.googleapis.com/v1/projects/programmingjs-90a13/databases/(default)/documents/"
@@ -61,20 +59,22 @@ const addFood = (e) => {
     baseChart = createChart(carbsValue, proteinValue, fatValue, selectedDish);
     postFood(carbsValue, proteinValue, fatValue, selectedDish);
     addDishToList(carbsValue, proteinValue, fatValue, selectedDish);
-    carbsValue.value = "";
-    proteinValue.value = "";
-    fatValue.value = "";
+    document.querySelector("#carbs").value = "";
+    document.querySelector("#protein").value = "";
+    document.querySelector("#fats").value = "";
+  } else {
+    alert("Please fill the form throughout (Dish, carbs, fats and protein)");
   }
 };
 
 const createChart = (carbs, proteins, fats) => {
   const data = {
-    labels: labels,
+    labels: ["Carbohydrates", "Proteins", "Fats"],
     datasets: [
       {
         label: "Nutrients",
-        backgroundColor: "#f6f930ff",
-        borderColor: "#2f2f2fff",
+        backgroundColor: ["#f6f930ff", "#d2f898ff", "#2f2f2fff"],
+        borderColor: ["#f6f930ff", "#d2f898ff", "#2f2f2fff"],
         data: [carbs, proteins, fats],
       },
     ],
@@ -117,19 +117,13 @@ const addDishToList = (carbs, protein, fats, selectedDish) => {
 const clearAPI = () => {
   FoodAPI.get("otto").then((data) => {
     for (d in data.documents) {
-      console.log(data.documents[d].name.slice(63));
-      FoodAPI.delete(`otto${data.documents[d].name.slice(63)}`).then((data) =>
-        console
-          .log(`deleted ${data}`)
-          .then(FoodAPI.get("otto").then((data) => console.log(data)))
-      );
+      FoodAPI.delete(`otto${data.documents[d].name.slice(63)}`);
     }
   });
   dishList.innerHTML = "";
   document.querySelector("#totalCaloriesAmount").textContent = 0;
 };
 
-console.log();
 updateDishes();
 let baseChart = createChart(0, 0, 0);
 form.addEventListener("submit", addFood);
